@@ -11,4 +11,25 @@ RUN apt update && \
 # Porém a imagem ficaria maior, pois haveria 2 layers na imagem. 
 # Quanto mais layers, maior a imagem. Sempre que possível, junte comandos RUN
 
+# A imagem node possui um usuário não root padrão chamado node (id 1000)
+# Supondo que a imagem node não possuisse um usuário não root
+# e fosse necessário criar um usuário xpto com id 1000
+# deveria então ser criado desta forma:
+#debian
+# RUN useradd -m -u 1000 xpto
+#alpine
+# RUN useradd -D -u 1000 danilo
 
+# Workaround de permissão do workdir:
+# Em algumas versões do docker pode ocorrer de ao criar o WORKDIR
+#a pasta criada esteja com permissão para o usuário root. 
+#Sendo assim é necessário criar a pasta e dar permissão antes de definir o 
+#WORKDIR e o USER    
+#RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+
+USER node
+# O que vier daqui pra baixo tem permissões imitadas ao usuário node
+# se dentro do container forem sincronizados arquivos da máquina, 
+# terão permissão do usuário node, por exemplo
+
+WORKDIR /home/node/app
