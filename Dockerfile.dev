@@ -1,0 +1,14 @@
+FROM node:22.8.0-slim
+
+# Adicionando o curl e o nodemon na imagem
+RUN apt update && \
+    apt install -y curl && \
+    npm install -g nodemon
+# Poderia ter sido feito desta forma
+# RUN apt update
+# RUN apt install -y curl
+# RUN npm intall -g nodemon
+# Porém a imagem ficaria maior, pois haveria 2 layers na imagem. 
+# Quanto mais layers, maior a imagem. Sempre que possível, junte comandos RUN
+
+

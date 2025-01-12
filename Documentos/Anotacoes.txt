@@ -1,0 +1,6 @@
+Build da imagem:
+docker build -t minha-imagem-node -f Dockerfile.dev .
+
+Build da imagem descosiderando o cache (faz todo o processo noamente).
+docker build -t minha-imagem-node -f Dockerfile.dev --no-cache.
+
