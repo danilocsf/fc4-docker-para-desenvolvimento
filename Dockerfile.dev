@@ -24,8 +24,17 @@ RUN apt update && \
 # Em algumas versões do docker pode ocorrer de ao criar o WORKDIR
 #a pasta criada esteja com permissão para o usuário root. 
 #Sendo assim é necessário criar a pasta e dar permissão antes de definir o 
-#WORKDIR e o USER    
+#WORKDIR e o USER   
 #RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+
+# Copia o script para o diretório raiz
+# Usando o COPY, o dono do arquivo é o root, mesmo que seja feito após
+# definir o usuário node (USER node)
+# Por tanto, é o root quem deve dar permissão de execução ao script
+COPY script/start.sh /
+
+RUN chmod +x /start.sh
+
 
 USER node
 # O que vier daqui pra baixo tem permissões imitadas ao usuário node
@@ -33,3 +42,15 @@ USER node
 # terão permissão do usuário node, por exemplo
 
 WORKDIR /home/node/app
+
+#Comandos COPY e RUN comentados, pois como está sendo utilizado volume
+#não faz mais sentido a utilização deles
+# Copia o package.json para o diretório corrente (WORKDIR)
+#COPY package.json ./
+#RUN npm install 
+
+# EXPOSE serve apenas para documentar que essa porta será utilizada
+EXPOSE 3000
+
+CMD [ "/start.sh" ]
+
