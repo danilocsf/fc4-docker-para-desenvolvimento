@@ -3,6 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: node -v  
     volumes: 
-      - .:/home/node/app  
+      - .:/home/node/app
+    ports: 
+      - 3000:3000  
+  
+  db:
+    image: mysql:8.0.30-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_DATABASE: my_database
