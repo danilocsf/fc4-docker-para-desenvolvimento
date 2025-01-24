@@ -14,9 +14,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+       #restart: true - o container deve ser reiniciado caso a dependência falhar 
   
   db:
     image: mysql:8.0.30-debian
+    #restart: on-failure:5 | always
     # Poderia utilizar um env file para trazer mais dinamismo
     environment:
       MYSQL_ROOT_PASSWORD: root  
