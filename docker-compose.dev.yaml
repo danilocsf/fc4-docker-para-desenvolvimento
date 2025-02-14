@@ -15,8 +15,10 @@ services:
       db:
         condition: service_healthy
        #restart: true - o container deve ser reiniciado caso a dependência falhar
-    networks:
-      - externalapi_default 
+    #networks:
+    #  - externalapi_default 
+    extra_hosts:
+     - "host.docker.internal:host-gateway"
   
   db:
     image: mysql:8.0.30-debian
@@ -32,9 +34,8 @@ services:
       retries: 5 # retries - número de tentativas antes de considerar o container como falhado
       start_period: 10s # start_period - tempo de espera antes de iniciar o healthcheck
       #ou seja, o healthcheck será executado a cada 30 segundos, com um timeout de 5 segundos, 5 tentativas e um tempo de espera inicial de 10 segundos
-    networks:
-      - externalapi_default 
-
-networks:
-  externalapi_default:
-    external: true
+    #networks:
+    #  - externalapi_default    
+#networks:
+#  externalapi_default:
+#    external: true
