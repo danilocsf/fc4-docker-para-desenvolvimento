@@ -1,0 +1,16 @@
+services:
+  web_common:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - .:/home/node/app
+    env_file:
+      - .env
+     # - path: env.override
+     #   required: false   
+    #networks:
+    #  - externalapi_default 
+    extra_hosts:
+     - "host.docker.internal:host-gateway"
+  
