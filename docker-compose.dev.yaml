@@ -51,7 +51,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:5.2.1-apache
-   # profiles: [debug]
+    profiles: [debug]
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
@@ -62,6 +62,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
 
 #networks:
 #  externalapi_default:
