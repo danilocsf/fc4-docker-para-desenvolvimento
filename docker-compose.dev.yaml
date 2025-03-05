@@ -48,6 +48,21 @@ services:
       #ou seja, o healthcheck será executado a cada 30 segundos, com um timeout de 5 segundos, 5 tentativas e um tempo de espera inicial de 10 segundos
     #networks:
     #  - externalapi_default    
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1-apache
+   # profiles: [debug]
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - 8080:80
+    depends_on:
+      db:
+        condition: service_healthy
+
 #networks:
 #  externalapi_default:
 #    external: true
