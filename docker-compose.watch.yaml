@@ -34,6 +34,7 @@ services:
     develop:
       watch:
         - action: sync+restart
+          x-initialSync: true
           path: ./.docker/nginx/nginx.conf
           target: /etc/nginx/nginx.conf  
 
