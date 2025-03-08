@@ -14,6 +14,7 @@ services:
        #restart: true - o container deve ser reiniciado caso a dependência falhar
 
   web2:
+    profiles: [nginx]
     extends: 
       file: docker-compose-common.yaml
       service: web_common   
@@ -25,7 +26,8 @@ services:
        #restart: true - o container deve ser reiniciado caso a dependência falhar
 
   nginx:
-    image: nginx:1.19.10-alpine   
+    image: nginx:1.19.10-alpine
+    profiles: [nginx]
     restart: always
     ports:
       - 4000:80
